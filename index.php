@@ -7,7 +7,7 @@ $user = DB::getInstance()->query("SELECT username
                          WHERE username = ?",
                          array('alex'));
 
-if($user->error()) {
+if(!$user->count()) {
     echo 'No user';
 } else {
     echo 'OK';
