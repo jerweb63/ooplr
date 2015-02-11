@@ -64,16 +64,16 @@ class DB
 
     private function action($action, $table, $where = array())
     {
-        if(count($where) ===3) {
-            $operators = array('=', '>', '<', '>=','<=');
+        if(count($where) === 3) {
+            $operators = array('=', '>', '<', '>=', '<=');
             
-            $field     = '$where[0]';
-            $operator  = '$where[1]';
-            $value     = '$where[2]';
+            $field     = $where[0];
+            $operator  = $where[1];
+            $value     = $where[2];
 
             if(in_array($operator, $operators)) {
 
-                $sql = "{$action} * FROM {$table} WHERE {$field} {$operator} ?";
+                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
                 if(!$this->query($sql, array($value))->error()) {
 
@@ -93,6 +93,16 @@ class DB
     public function delete($table, $where)
     {
         return $this->action('DELETE', $table, $where);
+    }
+
+    public function results()
+    {
+        return $this->_results;
+    }
+
+    public function first()
+    {
+        return $this->results()[0];
     }
 
     public function error()
