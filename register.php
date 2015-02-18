@@ -32,8 +32,25 @@ if(Input::exists()) {
   
     if($validation->passed()) {
 
-      Session::flash('success', 'You registered successfully!');
-      header('Location: index.php');
+      $user = new User();
+      echo $salt = Hash::salt(32);
+      die();
+
+      try {
+
+        $user->create(array(
+            'username' => '',
+            'password' => '',
+            'salt'     => '',
+            'name'     => '',
+            'joined'   => '',
+            'group'    => ''
+        ));
+      } catch(Exception $e) {
+
+          die($e->getMessage());
+      }
+
     } else {
         
         foreach($validation->errors() as $error) {
