@@ -60,7 +60,7 @@ class User
         return false;
     }
 
-    public function login($username = null, $password = null, $remember)
+    public function login($username = null, $password = null, $remember = false)
     {
         $user = $this->find($username);
 
