@@ -11,7 +11,6 @@ class User
     public function __construct($user = null)
     {
         $this->_db = DB::getInstance();
-
         $this->_sessionName = Config::get('session/session_name');
         $this->_cookieName  = Config::get('remember/cookie_name');
 
@@ -28,11 +27,9 @@ class User
 
                     // process Logout
                 }
-            } else {
-
-                $this->find($user);
             }
-
+        } else {
+            $this->find($user);
         }
     }
 
@@ -49,10 +46,11 @@ class User
 
             $field = (is_numeric($user)) ? 'id' : 'username';
             $data = $this->_db->get('users', array($field, '=', $user));
-
+   
             if($data->count()) {
 
                 $this->_data = $data->first();
+
                 return true;
             }
         }
@@ -61,19 +59,19 @@ class User
     }
 
     public function login($username = null, $password = null, $remember = false)
-    {
-        print_r($this->_data);
-
+    {   
         if(!$username && !$password && $this->exists()) {
+
             Session::put($this->_sessionName, $this->data()->id);
         } else {
             $user = $this->find($username);
 
             if($user) {
+
                 if($this->data()->password === Hash::make($password, $this->data()->salt)) {
     
                     Session::put($this->_sessionName, $this->data()->id);
-    
+                    
                     if($remember) {
     
                         $hash = Hash::unique();
@@ -85,6 +83,7 @@ class User
                                 'user_id' => $this->data()->id,
                                 'hash'    => $hash
                             ));
+
                         } else {
     
                             $hash = $hashCheck->first()->hash;
