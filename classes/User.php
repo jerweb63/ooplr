@@ -35,11 +35,10 @@ class User
 
     public function update($fields = array(), $id = null)
     {
-
         if(!$id && $this->is_LoggedIn()) {
             $id = $this->data()->id;
         }
-
+        echo $id;
         if(!$this->_db->update('users', $id, $fields)) {
             throw new Exception('There was a problem updating.');
         }
