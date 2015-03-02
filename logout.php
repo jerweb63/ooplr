@@ -1,4 +1,4 @@
-<?php #logout.php
+r<?php #logout.php
 
 require_once 'core/init.php';
 
